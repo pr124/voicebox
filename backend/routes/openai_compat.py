@@ -14,7 +14,6 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from ..database import get_db
-from ..mcp_server.resolve import resolve_profile
 
 logger = logging.getLogger(__name__)
 
@@ -207,6 +206,8 @@ async def _resolve_voice_prompt(
             "preset_engine": "qwen_custom_voice",
             "preset_voice_id": speaker,
         }
+
+    from ..mcp_server.resolve import resolve_profile
 
     default_profile = resolve_profile(None, None, db)
     if default_profile is None:
