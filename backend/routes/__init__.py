@@ -17,6 +17,7 @@ def register_routers(app: FastAPI) -> None:
     from .effects import router as effects_router
     from .audio import router as audio_router
     from .models import router as models_router
+    from .openai_compat import router as openai_compat_router
     from .settings import router as settings_router
     from .tasks import router as tasks_router
     from .cuda import router as cuda_router
@@ -38,6 +39,7 @@ def register_routers(app: FastAPI) -> None:
     app.include_router(effects_router)
     app.include_router(audio_router)
     app.include_router(models_router)
+    app.include_router(openai_compat_router)
     app.include_router(settings_router)
     app.include_router(tasks_router)
     app.include_router(cuda_router)
