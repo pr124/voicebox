@@ -15,8 +15,6 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..mcp_server.resolve import resolve_profile
-from ..services import profiles
-from ..services.profiles import get_profile_orm_by_name_or_id
 
 logger = logging.getLogger(__name__)
 
@@ -144,6 +142,9 @@ async def _resolve_voice_prompt(
     db: Session,
 ) -> dict[str, Any]:
     """Resolve a Voicebox profile or a built-in compatibility voice."""
+    from ..services import profiles
+    from ..services.profiles import get_profile_orm_by_name_or_id
+
     profile = get_profile_orm_by_name_or_id(voice, db)
     if profile is not None:
         try:
