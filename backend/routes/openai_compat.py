@@ -80,10 +80,7 @@ async def create_speech(
         supported = ", ".join(sorted(_SUPPORTED_RESPONSE_FORMATS))
         raise HTTPException(
             status_code=400,
-            detail=(
-                f"Unsupported response_format '{data.response_format}'. "
-                f"Voicebox currently supports: {supported}."
-            ),
+            detail=(f"Unsupported response_format '{data.response_format}'. Voicebox currently supports: {supported}."),
         )
 
     engine, model_size = mapping
@@ -166,9 +163,7 @@ async def _resolve_voice_prompt(
             known_voices[voice_id.casefold()] = voice_id
             known_voices[display_name.casefold()] = voice_id
 
-        voice_id = _OPENAI_KOKORO_VOICES.get(normalized_voice) or known_voices.get(
-            normalized_voice
-        )
+        voice_id = _OPENAI_KOKORO_VOICES.get(normalized_voice) or known_voices.get(normalized_voice)
         if voice_id is None:
             raise HTTPException(
                 status_code=400,
@@ -187,12 +182,9 @@ async def _resolve_voice_prompt(
         from ..backends.qwen_custom_voice_backend import QWEN_CUSTOM_VOICES
 
         known_voices = {
-            speaker.casefold(): speaker
-            for speaker, _name, _gender, _language, _description in QWEN_CUSTOM_VOICES
+            speaker.casefold(): speaker for speaker, _name, _gender, _language, _description in QWEN_CUSTOM_VOICES
         }
-        speaker = _OPENAI_QWEN_VOICES.get(normalized_voice) or known_voices.get(
-            normalized_voice
-        )
+        speaker = _OPENAI_QWEN_VOICES.get(normalized_voice) or known_voices.get(normalized_voice)
         if speaker is None:
             raise HTTPException(
                 status_code=400,
